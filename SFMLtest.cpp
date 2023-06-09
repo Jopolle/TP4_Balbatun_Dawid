@@ -2,15 +2,18 @@
 
 int main()
 {
-    sf::RenderWindow window(sf::RenderWindow(sf::VideoMode(800, 600), "My window"));
+    // Create a window
+    sf::RenderWindow window(sf::VideoMode(800, 600), "SFML Dot Controller");
 
-    sf::CircleShape shape(50);
-    shape.setFillColor(sf::Color::Green);
+    // Create a circle shape to represent the dot
+    sf::CircleShape dot(5.0f);
+    dot.setFillColor(sf::Color::Red);
+    dot.setPosition(window.getSize().x / 2, window.getSize().y / 2);
 
-    sf::Vector2f speed(0.1f, 0.1f);
-
+    // Game loop
     while (window.isOpen())
     {
+        // Process events
         sf::Event event;
         while (window.pollEvent(event))
         {
@@ -18,10 +21,23 @@ int main()
                 window.close();
         }
 
-        shape.move(speed);
-
+        // Clear the window
         window.clear();
-        window.draw(shape);
+
+        // Update the position of the dot based on key presses
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+            dot.move(0, -0.1);
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+            dot.move(-0.1, 0);
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+            dot.move(0, 0.1);
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+            dot.move(0.1, 0);
+
+        // Draw the dot
+        window.draw(dot);
+
+        // Update the window
         window.display();
     }
 

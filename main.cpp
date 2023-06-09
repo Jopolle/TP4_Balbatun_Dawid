@@ -3,8 +3,8 @@
 #include <iostream>
 #include "robotArm.h"
 
-int main() {
-
+int main()
+{
 
     return 0;
 }
