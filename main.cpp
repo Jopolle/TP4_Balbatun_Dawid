@@ -1,9 +1,7 @@
-
+#include <SFML/Graphics.hpp>
+#include <SFML/Window.hpp>
 #include <iostream>
-#include "arm.h"
-
-
-
+#include "robotArm.h"
 
 int main() {
 
