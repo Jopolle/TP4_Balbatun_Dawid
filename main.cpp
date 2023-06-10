@@ -3,19 +3,19 @@
 #include "robotArm.h"
 /*
  * TODO:
- *  -figure out equations for moving the arms (then build the class again)
- *  -implement limitations for arm movement(theta)
  *  -add ability to be programmed
+ *  -clean the fuck up
+ *
  */
 
-
+void drawCircleQuarter(sf::RenderWindow& window, float rad, sf::Vector2f origin);
 int main()
 {
-    float speed = 3, rad = 200;
+    float  rad = 2*ARM_LENGTH;
     sf::Vector2f position, origin = {WIDTH_CONST, HEIGHT_CONST}, initialPos = {WIDTH_CONST, HEIGHT_CONST - 100};
-    arm a1(origin, initialPos);
-    a1.setLength(rad/2);
-
+    //arm a1(origin, initialPos);
+    //a1.setLength(rad/2);
+    robotArm theArm(origin, initialPos);
 
 
 
@@ -39,7 +39,8 @@ int main()
     while (window.isOpen())
     {
         position = destination.getPosition();
-        a1.setEnd(position);
+        theArm.setDestination(position);
+        //a1.setEnd(position);
         sf::Time start = clock.getElapsedTime();
         sf::Event event;
         while (window.pollEvent(event))
@@ -52,18 +53,19 @@ int main()
 
         float grzegorian = std::pow(position.x - WIDTH_CONST, 2) + std::pow(SCREEN_HEIGHT - position.y, 2), wszolkowian = std::pow(rad, 2);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && grzegorian<wszolkowian)
-            destination.move(0, -speed);
+            destination.move(0, -SPEED);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && position.x > WIDTH_CONST)
-            destination.move(-speed, 0);
+            destination.move(-SPEED, 0);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && position.y < HEIGHT_CONST)
-            destination.move(0, speed);
+            destination.move(0, SPEED);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && grzegorian<wszolkowian)
-            destination.move(speed, 0);
-        
+            destination.move(SPEED, 0);
 
-        window.draw(destination);
+        drawCircleQuarter(window, rad, origin);
         window.draw(anchor);
-        a1.draw(window);
+        theArm.update();
+
+        theArm.draw(window);
         window.display();
         sf::Time frameTime = clock.getElapsedTime() - start;
         if (frameTime < targetFrameTime)
@@ -77,4 +79,26 @@ int main()
 
 
     return 0;
+}
+void drawCircleQuarter(sf::RenderWindow& window, float rad, sf::Vector2f origin)
+{
+    const int pointsCount = 100;
+
+    sf::VertexArray circle(sf::LinesStrip, pointsCount / 4 + 1);
+
+    for (int i = 0; i <= pointsCount / 4; i++)
+    {
+        //if();
+        float angle = i * (2 * 3.14159f / pointsCount);
+        float x = cos(angle) * rad;
+        float y = sin(angle) * rad;
+
+        circle[i].position = sf::Vector2f(x + origin.x, -y + origin.y);
+    }
+
+    window.draw(circle);
+    sf::VertexArray line(sf::Lines, 2);
+    line[0].position = origin;
+    line[1].position = sf::Vector2f(origin.x, origin.y-rad);
+    window.draw(line);
 }

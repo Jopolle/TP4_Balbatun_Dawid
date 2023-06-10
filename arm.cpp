@@ -1,5 +1,5 @@
 #include "arm.h"
-#include <cmath>
+
 
 arm::arm(sf::Vector2f origin, sf::Vector2f end)
         : origin(origin), end(end)
@@ -7,7 +7,7 @@ arm::arm(sf::Vector2f origin, sf::Vector2f end)
     // Create the shape for the robot arm
     sf::Vector2f direction = end - origin;
     theta = atan2(direction.y, direction.x) * 180.f / 3.14159f;
-    length = 100;
+    length = ARM_LENGTH;
 
     shape.setSize(sf::Vector2f(length, 5.f));
     shape.setOrigin(0.f, 2.5f);
@@ -20,7 +20,10 @@ void arm::draw(sf::RenderWindow& window) {
 }
 sf::Vector2f arm::getOrigin() const { return origin; }
 sf::Vector2f arm::getEnd() const { return end; }
-void arm::setOrigin(sf::Vector2f newOrigin) { origin = newOrigin; }
+void arm::setOrigin(sf::Vector2f newOrigin) {
+    origin = newOrigin;
+    shape.setPosition(origin);
+}
 void arm::setEnd(sf::Vector2f newEnd) {
     end = newEnd;
     sf::Vector2f direction = end - origin;
@@ -29,3 +32,5 @@ void arm::setEnd(sf::Vector2f newEnd) {
 }
 float arm::getLength() const {return length; }
 void arm::setLength(float newLength) {length = newLength;}
+float arm::getTheta() const {return theta;}
+void arm::setTheta(float newTheta) {theta = newTheta;}

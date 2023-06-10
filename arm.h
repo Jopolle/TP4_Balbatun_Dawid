@@ -1,9 +1,13 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <cmath>
+#include <iostream>
 const float SCREEN_HEIGHT = 800;
 const float SCREEN_WIDTH = 1200;
 const float HEIGHT_CONST = SCREEN_HEIGHT - 10;
-const float WIDTH_CONST = SCREEN_WIDTH/4;
+const float WIDTH_CONST = SCREEN_WIDTH/10;
+const float ARM_LENGTH = 300;
+const float SPEED = 3;
 
 
 class arm
@@ -23,4 +27,6 @@ public:
     void setEnd(sf::Vector2f newEnd);
     void setLength(float newLength);
     void draw(sf::RenderWindow& window);
+    float getTheta() const;
+    void setTheta(float newTheta);
 };
