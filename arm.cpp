@@ -1,39 +1,30 @@
 #include "arm.h"
 #include <cmath>
 
-arm::arm(){
-    x1 = SCREEN_WIDTH/2;
-    y1 = SCREEN_HEIGHT - 10;
-    l = 50.f;
-    x2 = 0.f;
-    y2 = 0.f;
-}
+arm::arm(sf::Vector2f origin, sf::Vector2f end)
+        : origin(origin), end(end)
+{
+    // Create the shape for the robot arm
+    sf::Vector2f direction = end - origin;
+    theta = atan2(direction.y, direction.x) * 180.f / 3.14159f;
+    length = 100;
 
-arm::arm(float x1, float y1, float l, float x2, float y2){
-    arm::x1 = x1;
-    arm::y1 = y1;
-    arm::l = l;
-    arm::x2 = x2;
-    arm::y2 = y2;
+    shape.setSize(sf::Vector2f(length, 5.f));
+    shape.setOrigin(0.f, 2.5f);
+    shape.setPosition(origin);
+    shape.setRotation(theta);  // Set initial rotation
+    shape.setFillColor(sf::Color::Yellow);  // Set color, this is arbitrary
 }
-
-
-float arm::getX(){
-    return x2;
+void arm::draw(sf::RenderWindow& window) {
+    window.draw(shape);
 }
-
-float arm::getY(){
-    return y2;
+sf::Vector2f arm::getOrigin() const { return origin; }
+sf::Vector2f arm::getEnd() const { return end; }
+void arm::setOrigin(sf::Vector2f newOrigin) { origin = newOrigin; }
+void arm::setEnd(sf::Vector2f newEnd) {
+    end = newEnd;
+    sf::Vector2f direction = end - origin;
+    theta = atan2(direction.y, direction.x) * 180.f / 3.14159f;
+    shape.setRotation(theta);
 }
-
-float arm::getAnchorX(){
-    return x1;
-}
-
-float arm::getAnchorY(){
-    return y1;
-}
-
-float arm::getLength() {
-    return l;
-}
+float arm::getLength() const {return length; }

@@ -12,15 +12,30 @@
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "SCREEN TEST");
+    float speed = 3;
+    sf::Vector2f position, origin = {SCREEN_WIDTH/4, SCREEN_HEIGHT - 10}, initialPos = {SCREEN_WIDTH/4, SCREEN_HEIGHT - 110};
+    arm a1(origin, initialPos);
+    sf::RenderWindow window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Mr.Robot feat. Rami Malek");
+
+    sf::CircleShape destination(5.0f);
+    destination.setFillColor(sf::Color::Green);
+    destination.setPosition(origin);
+
 
 
     sf::CircleShape anchor(5.0f);
     anchor.setFillColor(sf::Color::Red);
-    anchor.setPosition(SCREEN_WIDTH/2, SCREEN_HEIGHT-10);
+    anchor.setPosition(SCREEN_WIDTH/4, SCREEN_HEIGHT-10);
+
+    const float targetFPS = 60.0f;
+    sf::Time targetFrameTime = sf::seconds(1.0f / targetFPS);
+    sf::Clock clock;
 
     while (window.isOpen())
     {
+        position = destination.getPosition();
+        a1.setEnd(position);
+        sf::Time start = clock.getElapsedTime();
         // Process events
         sf::Event event;
         while (window.pollEvent(event))
@@ -29,9 +44,28 @@ int main()
                 window.close();
         }
 
+        window.clear();
 
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+            destination.move(0, -speed);
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+            destination.move(-speed, 0);
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+            destination.move(0, speed);
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+            destination.move(speed, 0);
+        
+
+        window.draw(destination);
         window.draw(anchor);
+        a1.draw(window);
         window.display();
+        sf::Time frameTime = clock.getElapsedTime() - start;
+        if (frameTime < targetFrameTime)
+        {
+            sf::sleep(targetFrameTime - frameTime);
+        }
     }
 
 

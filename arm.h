@@ -1,20 +1,23 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-const int SCREEN_HEIGHT = 600;
-const int SCREEN_WIDTH = 800;
+const float SCREEN_HEIGHT = 800;
+const float SCREEN_WIDTH = 1200;
 
 
 class arm
 {
 private:
-    float x1, y1, l, x2, y2;
-    sf::RectangleShape
+    sf::Vector2f origin;
+    sf::Vector2f end;
+    sf::RectangleShape shape;
+    float length, theta;
 public:
-    arm();
-    arm(float x1, float y1, float l, float x2, float y2);
-    float getX();
-    float getY();
-    float getAnchorX();
-    float getAnchorY();
-    float getLength();
+    arm(sf::Vector2f origin, sf::Vector2f end);
+
+    float getLength() const;
+    sf::Vector2f getOrigin() const;
+    sf::Vector2f getEnd() const;
+    void setOrigin(sf::Vector2f newOrigin);
+    void setEnd(sf::Vector2f newEnd);
+    void draw(sf::RenderWindow& window);
 };

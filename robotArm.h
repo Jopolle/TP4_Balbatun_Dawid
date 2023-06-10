@@ -2,6 +2,7 @@
 #include "arm.h"
 
 class robotArm {
+private:
 
 };
 
