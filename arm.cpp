@@ -28,3 +28,4 @@ void arm::setEnd(sf::Vector2f newEnd) {
     shape.setRotation(theta);
 }
 float arm::getLength() const {return length; }
+void arm::setLength(float newLength) {length = newLength;}

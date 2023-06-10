@@ -2,6 +2,8 @@
 #include <SFML/Graphics.hpp>
 const float SCREEN_HEIGHT = 800;
 const float SCREEN_WIDTH = 1200;
+const float HEIGHT_CONST = SCREEN_HEIGHT - 10;
+const float WIDTH_CONST = SCREEN_WIDTH/4;
 
 
 class arm
@@ -19,5 +21,6 @@ public:
     sf::Vector2f getEnd() const;
     void setOrigin(sf::Vector2f newOrigin);
     void setEnd(sf::Vector2f newEnd);
+    void setLength(float newLength);
     void draw(sf::RenderWindow& window);
 };

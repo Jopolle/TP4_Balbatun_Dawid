@@ -1,10 +1,9 @@
 #include <iostream>
+#include <cmath>
 #include "robotArm.h"
 /*
  * TODO:
- *  -generate anchor and destination point
  *  -figure out equations for moving the arms (then build the class again)
- *  -limit the anchor point depending on arm a.l
  *  -implement limitations for arm movement(theta)
  *  -add ability to be programmed
  */
@@ -12,9 +11,15 @@
 
 int main()
 {
-    float speed = 3;
-    sf::Vector2f position, origin = {SCREEN_WIDTH/4, SCREEN_HEIGHT - 10}, initialPos = {SCREEN_WIDTH/4, SCREEN_HEIGHT - 110};
+    float speed = 3, rad = 200;
+    sf::Vector2f position, origin = {WIDTH_CONST, HEIGHT_CONST}, initialPos = {WIDTH_CONST, HEIGHT_CONST - 100};
     arm a1(origin, initialPos);
+    a1.setLength(rad/2);
+
+
+
+
+
     sf::RenderWindow window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Mr.Robot feat. Rami Malek");
 
     sf::CircleShape destination(5.0f);
@@ -25,7 +30,7 @@ int main()
 
     sf::CircleShape anchor(5.0f);
     anchor.setFillColor(sf::Color::Red);
-    anchor.setPosition(SCREEN_WIDTH/4, SCREEN_HEIGHT-10);
+    anchor.setPosition(WIDTH_CONST, HEIGHT_CONST);
 
     const float targetFPS = 60.0f;
     sf::Time targetFrameTime = sf::seconds(1.0f / targetFPS);
@@ -36,7 +41,6 @@ int main()
         position = destination.getPosition();
         a1.setEnd(position);
         sf::Time start = clock.getElapsedTime();
-        // Process events
         sf::Event event;
         while (window.pollEvent(event))
         {
@@ -46,14 +50,14 @@ int main()
 
         window.clear();
 
-
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+        float grzegorian = std::pow(position.x - WIDTH_CONST, 2) + std::pow(SCREEN_HEIGHT - position.y, 2), wszolkowian = std::pow(rad, 2);
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && grzegorian<wszolkowian)
             destination.move(0, -speed);
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && position.x > WIDTH_CONST)
             destination.move(-speed, 0);
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && position.y < HEIGHT_CONST)
             destination.move(0, speed);
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && grzegorian<wszolkowian)
             destination.move(speed, 0);
         
 
