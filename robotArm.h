@@ -1,5 +1,4 @@
-#ifndef ROBOT_ARM_ROBOTARM_H
-#define ROBOT_ARM_ROBOTARM_H
+#pragma once
 #include "arm.h"
 
 class robotArm {
@@ -7,4 +6,3 @@ class robotArm {
 };
 
 
-#endif //ROBOT_ARM_ROBOTARM_H
