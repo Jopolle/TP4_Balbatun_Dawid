@@ -10,10 +10,10 @@ arm::arm(sf::Vector2f origin, sf::Vector2f end)
     length = ARM_LENGTH;
 
     shape.setSize(sf::Vector2f(length, 5.f));
-    shape.setOrigin(0.f, 2.5f);
+    shape.setOrigin(0, 2.5);
     shape.setPosition(origin);
     shape.setRotation(theta);  // Set initial rotation
-    shape.setFillColor(sf::Color::Yellow);  // Set color, this is arbitrary
+    shape.setFillColor(sf::Color::Green);  // Set color, this is arbitrary
 }
 void arm::draw(sf::RenderWindow& window) {
     window.draw(shape);

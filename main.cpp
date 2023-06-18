@@ -13,8 +13,8 @@ int main()
 {
     float  rad = 2*ARM_LENGTH;
     sf::Vector2f position, origin = {WIDTH_CONST, HEIGHT_CONST}, initialPos = {WIDTH_CONST, HEIGHT_CONST - 100};
-    //arm a1(origin, initialPos);
-    //a1.setLength(rad/2);
+    arm a1(origin, initialPos);
+    a1.setLength(rad/2);
     robotArm theArm(origin, initialPos);
 
 
@@ -49,7 +49,7 @@ int main()
                 window.close();
         }
 
-        window.clear();
+        window.clear(sf::Color::White);
 
         float grzegorian = std::pow(position.x - WIDTH_CONST, 2) + std::pow(SCREEN_HEIGHT - position.y, 2), wszolkowian = std::pow(rad, 2);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && grzegorian<wszolkowian)
@@ -60,7 +60,10 @@ int main()
             destination.move(0, SPEED);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && grzegorian<wszolkowian)
             destination.move(SPEED, 0);
-
+//        if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && position.x > WIDTH_CONST && position.y < HEIGHT_CONST && grzegorian<wszolkowian)
+//            destination.move (SPEED, SPEED);
+//        if (sf::Mouse::isButtonPressed(sf::Mouse::Right) && position.x > WIDTH_CONST && position.y < HEIGHT_CONST && grzegorian<wszolkowian)
+//            destination.move (-SPEED, -SPEED);
         drawCircleQuarter(window, rad, origin);
         window.draw(anchor);
         theArm.update();
