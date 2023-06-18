@@ -8,11 +8,16 @@ arm::arm(sf::Vector2f origin, sf::Vector2f end)
     theta = atan2(direction.y, direction.x) * 180.f / 3.14159f;
     length = ARM_LENGTH;
 
-    shape.setSize(sf::Vector2f(length, 5.f));
+    shape.setSize(sf::Vector2f(length, 10.f));
     shape.setOrigin(0, 2.5);
     shape.setPosition(origin);
     shape.setRotation(theta);  // Set initial rotation
-    shape.setFillColor(sf::Color::Green);  // Set color, this is arbitrary
+    shape.setFillColor(sf::Color::Black);  // Set color, this is arbitrary
+    sf::Texture texture;
+    if (texture.loadFromFile("\"C:\\Users\\filip\\Desktop\\armtext.jpg\"")) {
+        shape.setTexture(&texture);
+    }
+
 }
 void arm::draw(sf::RenderWindow& window) {
     window.draw(shape);

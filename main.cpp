@@ -24,9 +24,9 @@ int main()
     destination.setFillColor(sf::Color::Green);
     destination.setPosition(origin);
 
-    sf::CircleShape anchor(5.0f);
+    sf::CircleShape anchor(10.0f);
     anchor.setFillColor(sf::Color::Red);
-    anchor.setPosition(WIDTH_CONST - 6.5, HEIGHT_CONST);
+    anchor.setPosition(WIDTH_CONST - 7.0f, HEIGHT_CONST - 5.0f);
 
     const float targetFPS = 60.0f;
     sf::Time targetFrameTime = sf::seconds(1.0f / targetFPS);
