@@ -30,7 +30,7 @@ int main()
 
     sf::CircleShape anchor(5.0f);
     anchor.setFillColor(sf::Color::Red);
-    anchor.setPosition(WIDTH_CONST, HEIGHT_CONST);
+    anchor.setPosition(WIDTH_CONST - 6.5, HEIGHT_CONST);
 
     const float targetFPS = 60.0f;
     sf::Time targetFrameTime = sf::seconds(1.0f / targetFPS);
