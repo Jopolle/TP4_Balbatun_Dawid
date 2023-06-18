@@ -1,6 +1,5 @@
 #include "arm.h"
 
-
 arm::arm(sf::Vector2f origin, sf::Vector2f end)
         : origin(origin), end(end)
 {

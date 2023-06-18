@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cmath>
 #include "robotArm.h"
+#include "button.h"
 /*
  * TODO:
  *  -add ability to be programmed
@@ -17,16 +18,11 @@ int main()
     a1.setLength(rad/2);
     robotArm theArm(origin, initialPos);
 
-
-
-
     sf::RenderWindow window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Mr.Robot feat. Rami Malek");
 
     sf::CircleShape destination(5.0f);
     destination.setFillColor(sf::Color::Green);
     destination.setPosition(origin);
-
-
 
     sf::CircleShape anchor(5.0f);
     anchor.setFillColor(sf::Color::Red);
@@ -51,6 +47,12 @@ int main()
 
         window.clear(sf::Color::White);
 
+        Button button(sf::Vector2f(100, 100), sf::Vector2f(200, 50), sf::Color::Red, sf::Color::Green, sf::Color::Blue);
+
+        button.setOnClick([]() {
+            std::cout << "Kliknięto przycisk!" << std::endl;
+        });
+
         float grzegorian = std::pow(position.x - WIDTH_CONST, 2) + std::pow(SCREEN_HEIGHT - position.y, 2), wszolkowian = std::pow(rad, 2);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && grzegorian<wszolkowian)
             destination.move(0, -SPEED);
@@ -67,7 +69,8 @@ int main()
         drawCircleQuarter(window, rad, origin);
         window.draw(anchor);
         theArm.update();
-
+        button.update(window);
+        button.render(window);
         theArm.draw(window);
         window.display();
         sf::Time frameTime = clock.getElapsedTime() - start;
@@ -76,10 +79,6 @@ int main()
             sf::sleep(targetFrameTime - frameTime);
         }
     }
-
-
-
-
 
     return 0;
 }

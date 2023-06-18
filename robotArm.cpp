@@ -1,7 +1,3 @@
-//
-// Created by pablitto on 09.06.23.
-//
-
 #include "robotArm.h"
 robotArm::robotArm(sf::Vector2f origin, sf::Vector2f destination)
         : origin(origin), destination(destination), a1(origin, mid), a2(mid, destination), a3(origin, destination)
@@ -11,6 +7,7 @@ robotArm::robotArm(sf::Vector2f origin, sf::Vector2f destination)
     a1.setLength(ARM_LENGTH);
     a2.setLength(ARM_LENGTH);
 }
+
 void robotArm::calculatePosition() {
     float teta = std::abs(a3.getTheta())*0.0174532925199433f;
     a=(sqrt(std::pow(origin.x-destination.x,2)+std::pow(origin.y-destination.y, 2)))/2;

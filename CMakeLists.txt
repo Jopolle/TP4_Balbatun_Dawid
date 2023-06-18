@@ -5,10 +5,10 @@ set(CMAKE_CXX_STANDARD 17)
 
 
 
-set(ROBOT_ARM_SOURCES main.cpp robotArm.cpp arm.cpp)
-add_executable(Robot_Arm ${ROBOT_ARM_SOURCES})
+set(ROBOT_ARM_SOURCES main.cpp robotArm.cpp arm.cpp button.h button.cpp)
+add_executable(Robot_Arm ${ROBOT_ARM_SOURCES} button.h)
 
-add_executable(SFMLtest SFMLtest.cpp)
+add_executable(SFMLtest SFMLtest.cpp button.h button.cpp)
 
 
 set(SFML_STATIC_LIBRARIES TRUE)
