@@ -13,7 +13,7 @@ arm::arm(sf::Vector2f origin, sf::Vector2f end)
     shape.setOrigin(0.f, 2.5f);
     shape.setPosition(origin);
     shape.setRotation(theta);  // Set initial rotation
-    shape.setFillColor(sf::Color::Yellow);  // Set color, this is arbitrary
+    shape.setFillColor(sf::Color::Yellow);  // Set color
 }
 void arm::draw(sf::RenderWindow& window) {
     window.draw(shape);
