@@ -1,43 +1,61 @@
 #include <SFML/Graphics.hpp>
+#include "box.h"
+#include <vector>
 
 int main()
 {
-    // Create a window
-    sf::RenderWindow window(sf::VideoMode(800, 600), "SFML Dot Controller");
+    sf::RenderWindow window(sf::VideoMode(800, 600), "Grawitacja i waga pudełka");
 
-    // Create a circle shape to represent the dot
-    sf::CircleShape dot(5.0f);
-    dot.setFillColor(sf::Color::Red);
-    dot.setPosition(window.getSize().x / 2, window.getSize().y / 2);
+    std::vector<Box> boxes;
 
-    // Game loop
+    sf::Clock clock;
+
     while (window.isOpen())
     {
-        // Process events
         sf::Event event;
         while (window.pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
                 window.close();
+
+            if (event.type == sf::Event::MouseButtonPressed)
+            {
+                if (event.mouseButton.button == sf::Mouse::Left)
+                {
+                    sf::Vector2f mousePosition = sf::Vector2f(event.mouseButton.x, event.mouseButton.y);
+                    Box newBox(sf::Vector2f(100.0f, 100.0f), 1.0f, window);
+                    newBox.setPosition(mousePosition);
+                    boxes.push_back(newBox);
+                }
+            }
         }
 
-        // Clear the window
+        float deltaTime = clock.restart().asSeconds();
+
+        for (auto& box : boxes)
+        {
+            box.update(deltaTime);
+
+            // Sprawdzanie kolizji między pudełkami
+            for (auto& otherBox : boxes)
+            {
+                if (&box != &otherBox) // Pomijamy sprawdzanie kolizji ze sobą samym
+                {
+                    if (box.checkCollision(box.getShape(), otherBox.getShape()))
+                    {
+                        // Tutaj możesz dodać odpowiednią reakcję na kolizję, np. zmianę koloru pudełek itp.
+                    }
+                }
+            }
+        }
+
         window.clear();
 
-        // Update the position of the dot based on key presses
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-            dot.move(0, -0.1);
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-            dot.move(-0.1, 0);
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-            dot.move(0, 0.1);
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-            dot.move(0.1, 0);
+        for (auto& box : boxes)
+        {
+            box.draw();
+        }
 
-        // Draw the dot
-        window.draw(dot);
-
-        // Update the window
         window.display();
     }
 

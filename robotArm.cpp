@@ -33,6 +33,7 @@ void robotArm::update(){
     a2.setEnd(destination);
 
 }
+
 void robotArm::draw(sf::RenderWindow& window) {
     a1.draw(window);
     a2.draw(window);
