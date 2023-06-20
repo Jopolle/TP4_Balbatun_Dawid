@@ -25,8 +25,6 @@ const float SPEED = 10;
 //    sf::Vector2f getPosition();
 //    void update();
 //};
-#ifndef BOX_H
-#define BOX_H
 
 #include <SFML/Graphics.hpp>
 
@@ -49,5 +47,3 @@ private:
 
     sf::RenderWindow& window;
 };
-
-#endif // BOX_H

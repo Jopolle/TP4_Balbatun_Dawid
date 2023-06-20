@@ -1,5 +1,4 @@
 #include "Box.h"
-#include <vector>
 
 Box::Box(sf::Vector2f size, float weight, sf::RenderWindow& window)
         : size(size), weight(weight), window(window)
@@ -7,8 +6,6 @@ Box::Box(sf::Vector2f size, float weight, sf::RenderWindow& window)
     box.setSize(size);
     box.setFillColor(sf::Color::Red);
 }
-
-std::vector<Box> boxes;
 
 bool Box::checkCollision(const sf::RectangleShape& rect1, const sf::RectangleShape& rect2)
 {
@@ -38,19 +35,6 @@ void Box::update(float deltaTime)
         newPosition.y = window.getSize().y - size.y;
         velocity.y = 0.0f;
     }
-
-//    // Zatrzymaj ruch pudełka po kolizji
-//    for ( auto& otherBox : boxes)
-//    {
-//        if (&otherBox != this)
-//        {
-//            if (checkCollision(box, otherBox.getShape()))
-//            {
-//                velocity = sf::Vector2f(0.0f, 0.0f);
-//                break;
-//            }
-//        }
-//    }
 
     box.setPosition(newPosition);
 }

@@ -7,6 +7,7 @@
  *  -add stackable box class
  *  -program box movement and collision functions
  *  -clean the fuck up
+ *  -design of arm
 */
 
 void drawCircleQuarter(sf::RenderWindow& window, float rad, sf::Vector2f origin);
@@ -15,9 +16,9 @@ int main()
 {
     float  rad = 2*ARM_LENGTH, grzegorian, wszolkowian;
     sf::Vector2f position, origin = {WIDTH_CONST, HEIGHT_CONST}, initialPos = {WIDTH_CONST, HEIGHT_CONST - 100};
-    robotArm theArm(origin, initialPos);
+    robotArm robotArm(origin, initialPos);
     const float targetFPS = 500.0f;
-    sf::Time targetFrameTime = sf::seconds(1.0f / (10000.f * targetFPS));
+    sf::Time targetFrameTime = sf::seconds(1.0f / (10.f * targetFPS));
     sf::Clock clock;
     std::vector<Box> boxes;
 
@@ -32,7 +33,7 @@ int main()
         grzegorian = std::pow(position.x - WIDTH_CONST, 2) + std::pow(SCREEN_HEIGHT - position.y, 2);
         wszolkowian = std::pow(rad, 2);
 
-        theArm.setDestination(position);
+        robotArm.setDestination(position);
         sf::Time start = clock.getElapsedTime();
         sf::Event event;
         while (window.pollEvent(event))
@@ -45,7 +46,7 @@ int main()
                 if (event.mouseButton.button == sf::Mouse::Left)
                 {
                     sf::Vector2f mousePosition = sf::Vector2f(event.mouseButton.x, event.mouseButton.y);
-                    Box newBox(sf::Vector2f(100.0f, 100.0f), 1.0f, window);
+                    Box newBox(sf::Vector2f(100.0f, 100.0f), 5.0f, window);
                     newBox.setPosition(mousePosition);
                     boxes.push_back(newBox);
                 }
@@ -97,8 +98,8 @@ int main()
             destination.move(SPEED, 0);
 
         drawCircleQuarter(window, rad, origin);
-        theArm.update();
-        theArm.draw(window);
+        robotArm.update();
+        robotArm.draw(window);
 
         window.display();
 
