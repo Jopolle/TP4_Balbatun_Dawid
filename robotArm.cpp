@@ -33,8 +33,23 @@ void robotArm::update(){
     a2.setEnd(destination);
 
 }
+
 void robotArm::draw(sf::RenderWindow& window) {
     a1.draw(window);
     a2.draw(window);
+    drawGrip(window);
     //std::cout<<a3.getTheta()<<std::endl;
 };
+
+void robotArm::drawGrip(sf::RenderWindow &window) {
+    sf::Vector2f gripSize(20.0f, 60.0f); // Rozmiar uchwytu
+    sf::Vector2f gripOffset(gripSize.x / 2.0f, gripSize.y); // Przesunięcie uchwytu względem końca ramienia
+
+    // Obliczanie pozycji uchwytu
+    sf::Vector2f gripPosition = destination - gripOffset;
+
+    // Tworzenie prostokątnego kształtu uchwytu
+    sf::RectangleShape gripShape(gripSize);
+    gripShape.setPosition(gripPosition);
+    gripShape.setFillColor(sf::Color::Yellow);
+}
