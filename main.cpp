@@ -7,7 +7,6 @@
  *  -add stackable box class
  *  -program box movement and collision functions
  *  -clean the fuck up
- *  -design of arm
 */
 
 void drawCircleQuarter(sf::RenderWindow& window, float rad, sf::Vector2f origin);
