@@ -13,6 +13,7 @@ public:
     void update();
     void setDestination(sf::Vector2f newDestination);
     void draw(sf::RenderWindow& window);
-    void drawGrip(sf::RenderWindow& window);
 
 };
+
+
