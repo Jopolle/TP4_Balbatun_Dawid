@@ -1,13 +1,6 @@
 #include <cmath>
 #include "robotArm.h"
 #include <vector>
-/*
- * TODO:
- *  -add ability to be programmed
- *  -add stackable box class
- *  -program box movement and collision functions
- *  -clean the **** up
-*/
 
 void drawCircleQuarter(sf::RenderWindow& window, float rad, sf::Vector2f origin);
 
