@@ -5,9 +5,8 @@ const float SCREEN_HEIGHT = 800;
 const float SCREEN_WIDTH = 1200;
 const float HEIGHT_CONST = SCREEN_HEIGHT - 10;
 const float WIDTH_CONST = SCREEN_WIDTH/5;
-const float ARM_LENGTH = 350;
+const float ARM_LENGTH = 300;
 
-#pragma once
 
 //class box {
 //private:
@@ -25,8 +24,6 @@ const float ARM_LENGTH = 350;
 //    sf::Vector2f getPosition();
 //    void update();
 //};
-
-#include <SFML/Graphics.hpp>
 
 class Box
 {
