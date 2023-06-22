@@ -19,7 +19,6 @@ public:
     void setDestination(sf::Vector2f newDestination);
     void draw(sf::RenderWindow& window);
     void clawUpdate();
-
+    void drawGrip(sf::RenderWindow& window);
 
 };
-
