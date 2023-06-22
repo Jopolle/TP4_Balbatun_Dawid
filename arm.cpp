@@ -9,11 +9,11 @@ arm::arm(sf::Vector2f origin, sf::Vector2f end)
     theta = atan2(direction.y, direction.x) * 180.f / 3.14159f;
     length = ARM_LENGTH;
 
-    shape.setSize(sf::Vector2f(length, 5.f));
+    shape.setSize(sf::Vector2f(length, 10.f));
     shape.setOrigin(0.f, 2.5f);
     shape.setPosition(origin);
     shape.setRotation(theta);  // Set initial rotation
-    shape.setFillColor(sf::Color::Yellow);  // Set color, this is arbitrary
+    shape.setFillColor(sf::Color(120,120,130));  // Set color
 }
 void arm::draw(sf::RenderWindow& window) {
     window.draw(shape);

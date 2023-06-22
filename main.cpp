@@ -12,10 +12,10 @@
 void drawCircleQuarter(sf::RenderWindow& window, float rad, sf::Vector2f origin);
 int main()
 {
-    float  rad = 2*ARM_LENGTH, grzegorian, wszolkowian;
+    float  rad = 2*ARM_LENGTH, grzegorian, wszolkowian, speed = 3;
     sf::Vector2f position, origin = {WIDTH_CONST, HEIGHT_CONST}, initialPos = {WIDTH_CONST, HEIGHT_CONST - 100};
     robotArm theArm(origin, initialPos);
-    const float targetFPS = 60.0f;
+    const float targetFPS = 100.0f;
     sf::Time targetFrameTime = sf::seconds(1.0f / targetFPS);
     sf::Clock clock;
 
@@ -38,18 +38,26 @@ int main()
         {
             if (event.type == sf::Event::Closed)
                 window.close();
+//            if (event.type == sf::Keyboard::isKeyPressed(sf::Keyboard::K)){
+//                std::cout<<"input new movement speed"<<std::endl;
+//                std::cin >> speed;
+//            }
+
         }
 
         window.clear();
-
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::K)){
+            std::cout<<"input new movement speed"<<std::endl;
+            std::cin >> speed;
+        }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && grzegorian<wszolkowian)
-            destination.move(0, -SPEED);
+            destination.move(0, -speed);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && position.x > WIDTH_CONST)
-            destination.move(-SPEED, 0);
+            destination.move(-speed, 0);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && position.y < HEIGHT_CONST)
-            destination.move(0, SPEED);
+            destination.move(0, speed);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && grzegorian<wszolkowian)
-            destination.move(SPEED, 0);
+            destination.move(speed, 0);
 
         drawCircleQuarter(window, rad, origin);
         theArm.update();

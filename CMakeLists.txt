@@ -3,7 +3,7 @@ project(Robot_Arm)
 
 set(CMAKE_CXX_STANDARD 17)
 
-set(ROBOT_ARM_SOURCES main.cpp robotArm.cpp arm.cpp)
+set(ROBOT_ARM_SOURCES main.cpp robotArm.cpp arm.cpp box.cpp)
 add_executable(Robot_Arm ${ROBOT_ARM_SOURCES})
 
 add_executable(SFMLtest SFMLtest.cpp)
