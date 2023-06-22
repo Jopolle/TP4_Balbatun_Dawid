@@ -48,4 +48,3 @@ sf::RectangleShape& Box::getShape()
 {
     return box;
 }
-

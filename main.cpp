@@ -6,7 +6,7 @@
  *  -add ability to be programmed
  *  -add stackable box class
  *  -program box movement and collision functions
- *  -clean the fuck up
+ *  -clean the **** up
 */
 
 void drawCircleQuarter(sf::RenderWindow& window, float rad, sf::Vector2f origin);
@@ -14,11 +14,11 @@ void drawCircleQuarter(sf::RenderWindow& window, float rad, sf::Vector2f origin)
 int main()
 {
 
-    float  rad = 2*ARM_LENGTH, grzegorian, wszolkowian, speed = 3;
+    float  rad = 2*ARM_LENGTH, grzegorian, wszolkowian, speed = 8;
     sf::Vector2f position, origin = {WIDTH_CONST, HEIGHT_CONST}, initialPos = {WIDTH_CONST, HEIGHT_CONST - 100};
-    robotArm theArm(origin, initialPos);
-    const float targetFPS = 100.0f;
-    sf::Time targetFrameTime = sf::seconds(1.0f / targetFPS);
+    robotArm robotArm(origin, initialPos);
+    const float targetFPS = 500.0f;
+    sf::Time targetFrameTime = sf::seconds(1.0f / (targetFPS*10.f));
 
     sf::Clock clock;
     std::vector<Box> boxes;
@@ -88,7 +88,7 @@ int main()
         {
             box.draw();
         }
-                window.clear();
+
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::K)){
             std::cout<<"input new movement speed"<<std::endl;
             std::cin >> speed;
