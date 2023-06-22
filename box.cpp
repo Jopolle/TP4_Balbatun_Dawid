@@ -1,4 +1,4 @@
-#include "Box.h"
+#include "box.h"
 
 Box::Box(sf::Vector2f size, float weight, sf::RenderWindow& window)
         : size(size), weight(weight), window(window)
