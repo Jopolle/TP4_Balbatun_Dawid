@@ -1,5 +1,4 @@
 #pragma once
-
 #include "box.h"
 
 class arm

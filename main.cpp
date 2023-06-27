@@ -1,23 +1,18 @@
 #include <cmath>
 #include "robotArm.h"
 #include <vector>
-/*
- * TODO:
- *  -add ability to be programmed
- *  -add stackable box class
- *  -program box movement and collision functions
- *  -clean the fuck up
-*/
 
 void drawCircleQuarter(sf::RenderWindow& window, float rad, sf::Vector2f origin);
 
 int main()
 {
-    float  rad = 2*ARM_LENGTH, grzegorian, wszolkowian;
+
+    float  rad = 2*ARM_LENGTH, grzegorian, wszolkowian, speed = 8;
     sf::Vector2f position, origin = {WIDTH_CONST, HEIGHT_CONST}, initialPos = {WIDTH_CONST, HEIGHT_CONST - 100};
     robotArm robotArm(origin, initialPos);
     const float targetFPS = 500.0f;
-    sf::Time targetFrameTime = sf::seconds(1.0f / (10.f * targetFPS));
+    sf::Time targetFrameTime = sf::seconds(1.0f / (targetFPS*10.f));
+
     sf::Clock clock;
     std::vector<Box> boxes;
 
@@ -39,7 +34,6 @@ int main()
         {
             if (event.type == sf::Event::Closed)
                 window.close();
-
             if (event.type == sf::Event::MouseButtonPressed)
             {
                 if (event.mouseButton.button == sf::Mouse::Left)
@@ -50,6 +44,7 @@ int main()
                     boxes.push_back(newBox);
                 }
             }
+
         }
 
         float deltaTime = clock.restart().asSeconds();
@@ -87,14 +82,18 @@ int main()
             box.draw();
         }
 
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::K)){
+            std::cout<<"input new movement speed"<<std::endl;
+            std::cin >> speed;
+        }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && grzegorian<wszolkowian)
-            destination.move(0, -SPEED);
+            destination.move(0, -speed);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && position.x > WIDTH_CONST)
-            destination.move(-SPEED, 0);
+            destination.move(-speed, 0);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && position.y < HEIGHT_CONST)
-            destination.move(0, SPEED);
+            destination.move(0, speed);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && grzegorian<wszolkowian)
-            destination.move(SPEED, 0);
+            destination.move(speed, 0);
 
         drawCircleQuarter(window, rad, origin);
         robotArm.update();
